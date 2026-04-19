@@ -46,8 +46,6 @@ def main():
         print("\n" + "="*55)
         print("  STEP 1: GENERATING SYNTHETIC CLIMATE DATASET")
         print("="*55)
-        from src.generate_dataset import *
-        # Re-import to execute
         import importlib, src.generate_dataset as gd
         importlib.reload(gd)
     else:
