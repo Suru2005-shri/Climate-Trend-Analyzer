@@ -42,7 +42,7 @@ seasonal_temp   = 8 * np.sin(2 * np.pi * (doy - 80) / 365)   # seasonal swing
 warming_signal  = WARMING_RATE * (years - years.min())        # gradual warming
 base_temp       = 27.0                                         # Mumbai baseline
 noise_temp      = np.random.normal(0, 1.5, n)
-temperature     = base_temp + seasonal_temp + warming_signal + noise_temp
+temperature     = np.array(base_temp + seasonal_temp + warming_signal + noise_temp, dtype=float)
 
 # ─────────────────────────────────────────────
 # RAINFALL  (mm/day)
@@ -105,11 +105,7 @@ df = pd.DataFrame({
     "year"        : dates.year,
     "month"       : dates.month,
     "day"         : dates.day,
-    "season"      : pd.cut(
-                        dates.month,
-                        bins=[0,2,5,8,11,12],
-                        labels=["Winter","Spring","Monsoon","Autumn","Winter2"]
-                    ).astype(str).replace("Winter2","Winter"),
+    "season"      : np.where(dates.month.isin([12,1,2]), "Winter", np.where(dates.month.isin([3,4,5]), "Spring", np.where(dates.month.isin([6,7,8]), "Monsoon", "Autumn"))),
     "temperature" : np.round(temperature, 2),
     "rainfall"    : np.round(np.clip(rainfall, 0, None), 2),
     "humidity"    : np.round(humidity, 1),
