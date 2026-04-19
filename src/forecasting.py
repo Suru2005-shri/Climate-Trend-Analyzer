@@ -201,13 +201,13 @@ def run_forecasting(df=None):
     print("   FORECASTING")
     print("═══════════════════════════════════════")
 
-    print("\n📈 1. Linear Regression Forecast (Yearly)...")
+    print("\n 1. Linear Regression Forecast (Yearly)...")
     lr_pred, lr_metrics = linear_forecast(df, forecast_years=10)
 
-    print("\n📈 2. SARIMA Monthly Forecast...")
+    print("\n 2. SARIMA Monthly Forecast...")
     sarima_pred, sarima_metrics = sarima_forecast(df, steps=24)
 
-    print("\n✅ Forecasting complete.")
+    print("\n Forecasting complete.")
     return lr_pred, sarima_pred
 
 if __name__ == "__main__":
