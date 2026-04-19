@@ -138,7 +138,7 @@ def plot_rainfall_heatmap(df):
     ax.set_facecolor(PALETTE["panel"])
 
     import matplotlib.colors as mcolors
-    cmap = plt.cm.get_cmap("YlGnBu")
+    cmap = matplotlib.colormaps["YlGnBu"]
     im   = ax.imshow(pivot.values, aspect="auto", cmap=cmap)
 
     ax.set_yticks(range(len(pivot.index)))
