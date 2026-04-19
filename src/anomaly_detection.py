@@ -208,7 +208,7 @@ def run_anomaly_detection(df=None):
 
     combined_mask = zscore_mask | rolling_mask
 
-    print("\n🖼️  Generating Plots...")
+    print("\nGenerating Plots...")
     plot_anomaly_timeline(df, combined_mask, "Z-Score + Rolling")
     plot_anomaly_per_year(df, combined_mask)
 
@@ -222,7 +222,7 @@ def run_anomaly_detection(df=None):
         "isolation_forest"    : int(if_mask.sum()),
         "combined_anomalies"  : int(combined_mask.sum()),
     }
-    print("\n📊 Anomaly Detection Summary:")
+    print("\nAnomaly Detection Summary:")
     for k, v in summary.items():
         print(f"   {k}: {v}")
     return summary, report
