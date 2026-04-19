@@ -319,7 +319,7 @@ By studying or building this project, you will learn:
 *Data Science & Analytics Enthusiast*
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin)](www.linkedin.com/in/shruti-srivastava-36b26232a)
-[![GitHub](https://img.shields.io/badge/GitHub-Follow-black?logo=github)](https://github.com/yourusername)
+[![GitHub](https://img.shields.io/badge/GitHub-Follow-black?logo=github)](https://github.com/Suru2005-shri)
 
 ---
 
