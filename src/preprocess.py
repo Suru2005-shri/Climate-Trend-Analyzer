@@ -24,7 +24,7 @@ def handle_missing(df):
     before = df[numeric_cols].isnull().sum().sum()
 
     # Forward-fill for short gaps (weather continuity)
-    df[numeric_cols] = df[numeric_cols].fillna(method="ffill", limit=3)
+    df[numeric_cols] = df[numeric_cols].ffill(limit=3)
     # Remaining NaNs → median of same month
     for col in numeric_cols:
         df[col] = df.groupby("month")[col].transform(
