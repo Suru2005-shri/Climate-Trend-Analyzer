@@ -315,10 +315,10 @@ By studying or building this project, you will learn:
 
 ## 👤 Author
 
-**[Your Name]**  
+**Shruti Srivastava**  
 *Data Science & Analytics Enthusiast*
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin)](https://linkedin.com/in/yourprofile)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin)](www.linkedin.com/in/shruti-srivastava-36b26232a)
 [![GitHub](https://img.shields.io/badge/GitHub-Follow-black?logo=github)](https://github.com/yourusername)
 
 ---
