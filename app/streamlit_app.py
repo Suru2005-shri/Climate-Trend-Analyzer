@@ -25,7 +25,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 # ─────────────────────────────────────────────
 st.set_page_config(
     page_title="Climate Trend Analyzer",
-    page_icon="🌍",
+    # page_icon="🌍",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -62,7 +62,7 @@ PALETTE = {
 def load_data():
     path = "data/climate_data_clean.csv"
     if not os.path.exists(path):
-        st.error("❌ Data not found. Please run: python main.py first.")
+        st.error(" Data not found. Please run: python main.py first.")
         st.stop()
     df = pd.read_csv(path, parse_dates=["date"])
     return df
@@ -98,26 +98,26 @@ def main():
         st.image("https://via.placeholder.com/280x80/0D1117/E84040?text=🌍+Climate+Analyzer",
                  use_column_width=True)
         st.markdown("---")
-        st.markdown("### 🎛️ Filters")
+        st.markdown("###  Filters")
 
         year_range = st.slider(
-            "📅 Year Range",
+            " Year Range",
             int(df["year"].min()), int(df["year"].max()),
             (int(df["year"].min()), int(df["year"].max()))
         )
         seasons = st.multiselect(
-            "🍂 Seasons",
+            " Seasons",
             options=["Winter","Spring","Monsoon","Autumn"],
             default=["Winter","Spring","Monsoon","Autumn"]
         )
         variable = st.selectbox(
-            "📊 Primary Variable",
+            "Primary Variable",
             ["temperature","rainfall","humidity","wind_speed"],
             index=0
         )
         st.markdown("---")
         st.markdown("### 📁 Project Links")
-        st.markdown("🔗 [GitHub Repository](#)")
+        st.markdown("🔗 [GitHub Repository](https://github.com/Suru2005-shri/Climate-Trend-Analyzer)")
         st.markdown("📄 [View Report](reports/insights_report.txt)")
         st.markdown("---")
         st.caption("Climate Trend Analyzer | Mumbai, India | 1994–2024")
@@ -137,7 +137,7 @@ def main():
     # ── HEADER ───────────────────────────────
     st.markdown("""
     <h1 style='text-align:center; color:#E6EDF3; font-size:2.5rem; margin-bottom:0'>
-        🌍 Climate Trend Analyzer
+         Climate Trend Analyzer
     </h1>
     <p style='text-align:center; color:#8B949E; font-size:1rem; margin-top:0'>
         Mumbai, India &nbsp;|&nbsp; 30-Year Historical Analysis (1994–2024) &nbsp;|&nbsp; Python Data Science Project
@@ -170,7 +170,7 @@ def main():
 
     # ── TAB LAYOUT ───────────────────────────
     tab1, tab2, tab3, tab4, tab5 = st.tabs([
-        "📈 Trends", "🌧️ Rainfall", "🚨 Anomalies", "🔮 Forecast", "📊 Dashboard"
+        "Trends", "Rainfall", "Anomalies", "Forecast", "Dashboard"
     ])
 
     # ────────────────────────────────────────
@@ -212,10 +212,12 @@ def main():
             plt.close()
         with col2:
             st.subheader("Monthly Average")
-            monthly_v = fdf.groupby("month")[variable].mean()
+            monthly_v = fdf.groupby("month")[variable].mean().reindex(range(1, 13))
             months_abbr = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
             fig3, ax3 = dark_fig(7, 4)
-            bar_colors = [PALETTE["temp"] if v > monthly_v.mean() else PALETTE["rain"]
+            monthly_v = monthly_v.fillna(0)
+            mean_val = monthly_v.mean()
+            bar_colors = [PALETTE["temp"] if v > mean_val else PALETTE["rain"]
                           for v in monthly_v.values]
             ax3.bar(range(1,13), monthly_v.values, color=bar_colors, alpha=0.85)
             ax3.set_xticks(range(1,13))
@@ -260,7 +262,7 @@ def main():
     # TAB 3 — ANOMALIES
     # ────────────────────────────────────────
     with tab3:
-        st.subheader("🚨 Climate Anomaly Detection")
+        st.subheader(" Climate Anomaly Detection")
         anom_counts = fdf["anomaly"].value_counts().reset_index()
         anom_counts.columns = ["Event Type","Count"]
         col1, col2 = st.columns([1, 2])
@@ -297,7 +299,7 @@ def main():
         st.pyplot(fig7, use_container_width=True)
         plt.close()
 
-        st.subheader("📋 Anomaly Records")
+        st.subheader(" Anomaly Records")
         anom_df = fdf[fdf["anomaly"] != "Normal"][["date","year","month","temperature","rainfall","humidity","anomaly"]].copy()
         anom_df = anom_df.sort_values("temperature", ascending=False).reset_index(drop=True)
         st.dataframe(anom_df.head(50).style.background_gradient(subset=["temperature"], cmap="Reds"),
@@ -307,7 +309,7 @@ def main():
     # TAB 4 — FORECAST
     # ────────────────────────────────────────
     with tab4:
-        st.subheader("🔮 Temperature Forecast (2025–2034)")
+        st.subheader("Temperature Forecast (2025–2034)")
         forecast_path = "reports/forecast_linear.csv"
         if os.path.exists(forecast_path):
             fc = pd.read_csv(forecast_path)
@@ -334,7 +336,7 @@ def main():
     # TAB 5 — DASHBOARD
     # ────────────────────────────────────────
     with tab5:
-        st.subheader("📊 Summary Dashboard")
+        st.subheader("Summary Dashboard")
         dash_path = "outputs/figures/10_summary_dashboard.png"
         if os.path.exists(dash_path):
             st.image(dash_path, use_column_width=True,
@@ -342,10 +344,10 @@ def main():
         else:
             st.warning("Run: python src/generate_report.py to generate the dashboard.")
 
-        st.subheader("📄 Insights Report")
+        st.subheader(" Insights Report")
         report_path = "reports/insights_report.txt"
         if os.path.exists(report_path):
-            with open(report_path) as f:
+            with open(report_path, encoding="utf-8") as f:
                 content = f.read()
             st.code(content, language="")
         else:
